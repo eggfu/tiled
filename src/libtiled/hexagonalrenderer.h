@@ -41,7 +41,7 @@ class TILEDSHARED_EXPORT HexagonalRenderer : public MapRenderer
 public:
     HexagonalRenderer(const Map *map) : MapRenderer(map) {}
 
-    QSize mapSize() const;
+    virtual QSize mapSize() const = 0;
 
     QRect boundingRect(const QRect &rect) const;
 
@@ -67,14 +67,14 @@ public:
                         const QRectF &exposed = QRectF()) const;
 
 
-    QPolygonF createHexagonForTile(const int x, const int y) const;
+    virtual QPolygonF createHexagonForTile(const int x, const int y) const = 0;
     QRectF tileRectToBoundingPixelRect(QRectF rect) const;
 
     using MapRenderer::pixelToTileCoords;
-    QPointF pixelToTileCoords(qreal x, qreal y) const;
+    virtual QPointF pixelToTileCoords(qreal x, qreal y) const = 0;
 
     using MapRenderer::tileToPixelCoords;
-    QPointF tileToPixelCoords(qreal x, qreal y) const;
+    virtual QPointF tileToPixelCoords(qreal x, qreal y) const = 0;
 };
 
 class TILEDSHARED_EXPORT FlatHexRenderer : public HexagonalRenderer
@@ -84,32 +84,7 @@ public:
 
     QSize mapSize() const;
 
-    QRect boundingRect(const QRect &rect) const;
-
-    QRectF boundingRect(const MapObject *object) const;
-    QPainterPath shape(const MapObject *object) const;
-
-    void drawGrid(QPainter *painter, const QRectF &rect, QColor grid) const;
-
-    void drawTileLayer(QPainter *painter, const TileLayer *layer,
-                       const QRectF &exposed = QRectF()) const;
-
-    void drawTileSelection(QPainter *painter,
-                           const QRegion &region,
-                           const QColor &color,
-                           const QRectF &exposed) const;
-
-    void drawMapObject(QPainter *painter,
-                       const MapObject *object,
-                       const QColor &color) const;
-
-    void drawImageLayer(QPainter *painter,
-                        const ImageLayer *layer,
-                        const QRectF &exposed = QRectF()) const;
-
-
     QPolygonF createHexagonForTile(const int x, const int y) const;
-    QRectF tileRectToBoundingPixelRect(QRectF rect) const;
 
     using MapRenderer::pixelToTileCoords;
     QPointF pixelToTileCoords(qreal x, qreal y) const;
@@ -125,32 +100,7 @@ public:
 
     QSize mapSize() const;
 
-    QRect boundingRect(const QRect &rect) const;
-
-    QRectF boundingRect(const MapObject *object) const;
-    QPainterPath shape(const MapObject *object) const;
-
-    void drawGrid(QPainter *painter, const QRectF &rect, QColor grid) const;
-
-    void drawTileLayer(QPainter *painter, const TileLayer *layer,
-                       const QRectF &exposed = QRectF()) const;
-
-    void drawTileSelection(QPainter *painter,
-                           const QRegion &region,
-                           const QColor &color,
-                           const QRectF &exposed) const;
-
-    void drawMapObject(QPainter *painter,
-                       const MapObject *object,
-                       const QColor &color) const;
-
-    void drawImageLayer(QPainter *painter,
-                        const ImageLayer *layer,
-                        const QRectF &exposed = QRectF()) const;
-
-
     QPolygonF createHexagonForTile(const int x, const int y) const;
-    QRectF tileRectToBoundingPixelRect(QRectF rect) const;
 
     using MapRenderer::pixelToTileCoords;
     QPointF pixelToTileCoords(qreal x, qreal y) const;
