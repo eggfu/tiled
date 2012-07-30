@@ -25,6 +25,7 @@
 #include "map.h"
 #include "mapdocument.h"
 #include "orthogonalrenderer.h"
+#include "hexagonalrenderer.h"
 #include "preferences.h"
 #include "tilelayer.h"
 
@@ -58,6 +59,8 @@ NewMapDialog::NewMapDialog(QWidget *parent) :
     mUi->orientation->addItem(tr("Orthogonal"), Map::Orthogonal);
     mUi->orientation->addItem(tr("Isometric"), Map::Isometric);
     mUi->orientation->addItem(tr("Isometric (Staggered)"), Map::Staggered);
+    mUi->orientation->addItem(tr("Hexagonal (Flat Hex)"), Map::FlatHex);
+    mUi->orientation->addItem(tr("Hexagonal (Iso Hex)"), Map::IsoHex);
 
     mUi->orientation->setCurrentIndex(orientation);
     mUi->mapWidth->setValue(mapWidth);

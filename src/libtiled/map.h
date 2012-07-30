@@ -68,7 +68,9 @@ public:
         Unknown,
         Orthogonal,
         Isometric,
-        Staggered
+        Staggered,
+        FlatHex,
+        IsoHex
     };
 
     /**

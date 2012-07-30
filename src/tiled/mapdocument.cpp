@@ -26,6 +26,7 @@
 #include "addremovetileset.h"
 #include "changeproperties.h"
 #include "changetileselection.h"
+#include "hexagonalrenderer.h"
 #include "imagelayer.h"
 #include "isometricrenderer.h"
 #include "layermodel.h"
@@ -66,6 +67,12 @@ MapDocument::MapDocument(Map *map, const QString &fileName):
         break;
     case Map::Staggered:
         mRenderer = new StaggeredRenderer(map);
+        break;
+    case Map::FlatHex:
+        mRenderer = new FlatHexRenderer(map);
+        break;
+    case Map::IsoHex:
+        mRenderer = new IsoHexRenderer(map);
         break;
     default:
         mRenderer = new OrthogonalRenderer(map);
