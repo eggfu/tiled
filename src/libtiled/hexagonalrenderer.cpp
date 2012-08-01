@@ -37,14 +37,6 @@
 
 using namespace Tiled;
 
-/*
-QSize HexagonalRenderer::mapSize() const
-{
-    return QSize(map()->width() * map()->tileWidth() * .75 + (map()->tileWidth() * .25),
-                 map()->height() * map()->tileHeight() + (map()->tileHeight() * .5));
-}
-*/
-
 QRect HexagonalRenderer::boundingRect(const QRect &rect) const
 {
    return tileRectToBoundingPixelRect(rect).toRect();
@@ -237,14 +229,14 @@ QPolygonF FlatHexRenderer::createHexagonForTile(const int x, const int y) const
 
 QSize IsoHexRenderer::mapSize() const
 {
-    return QSize(map()->width() * map()->tileWidth() * .75 + (map()->tileWidth() * .25),
-                 map()->height() * map()->tileHeight() + (map()->tileHeight() * .5));
+    return QSize(map()->width() * map()->tileWidth() + (map()->tileWidth() * .5) + 2,
+                 map()->height() * map()->tileHeight() * .75 + (map()->tileHeight() * .25) + 2);
 }
 
 QPointF IsoHexRenderer::pixelToTileCoords(qreal x, qreal y) const
 {
-    const int xoffset = qRound(x / (map()->tileWidth() * .75));
-    const int yoffset = y / map()->tileHeight() - ((xoffset % 2 == 0) ? 0 : .5);
+    const int yoffset = qRound(y / (map()->tileHeight() * .75));
+    const int xoffset = x / map()->tileWidth() - ((yoffset % 2 == 0) ? 0 : .5);
 
     for (int i=-1; i<2; ++i) {
         for (int j=-1; j<2; ++j) {
@@ -277,7 +269,7 @@ QPolygonF IsoHexRenderer::createHexagonForTile(const int x, const int y) const
     const int width = map()->tileWidth();
     const int height = map()->tileHeight();
 
-    const qreal xoffset = x * width + ((y % 2 == 0) ? 0 : height * .5);
+    const qreal xoffset = x * width + ((y % 2 == 0) ? 0 : width * .5);
     const qreal yoffset = y * height * .75;
 
     QPolygonF hexagon;
